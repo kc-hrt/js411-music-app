@@ -1,25 +1,30 @@
-import logo from './logo.svg';
+import React from 'react';
+import Dashboard from './Components/Dashboard';
+import Login from './Components/Login';
+import NavBar from './Components/NavBar';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+export default class App extends React.Component {
+  state = {
+    loggedIn: false,
+  }
 
-export default App;
+  handleLogin = (e) => {
+    e.preventDefault()
+    this.setState({loggedIn: !this.state.loggedIn})
+  }
+
+  render() {
+    return (
+      <div>
+        <NavBar />
+        {this.state.loggedIn ? 
+        <Dashboard />
+        :
+        <Login handleLogin={this.handleLogin} />
+        }
+      </div>
+    );
+  }
+
+}
